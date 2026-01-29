@@ -9,7 +9,7 @@ const User = require("./models/userModel");
 const signUpRouter = require("./routes/signUp");
 
 const app = express();
-const PORT = 5000;
+
 
 // Connect to MongoDB
 connectDB();
@@ -21,6 +21,9 @@ app.use(express.json()); // מאפשר לקרוא JSON ב-body
 // Routes
 app.use(signUpRouter);
 
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
 
 // Route לבדיקה אם המשתמש הוא admin
 app.post("/api/check-admin", async (req, res) => {
@@ -69,6 +72,8 @@ app.get("/api/users" ,async  (req, res) => {
 });
 
 
+const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
